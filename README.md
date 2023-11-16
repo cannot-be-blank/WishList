@@ -60,6 +60,9 @@ Index and Dashboard have a View Store Page button if a link and seller are provi
 ### 3.2: Searchable Sortable Lists
 Index and Dashboard both have the ability to sort or filter items by name or seller.
 
+### 3.3: Mobile Friendly
+All pages are made to behave on all screen sizes.
+
 
 ## Contributions
-Please feel free to either fork this or branch master and submit changes. I will review pull requests case-by-case and if I decide I want to implement your change, I will merge it for you! Otherwise feel free to copy this repo and re-distribute!
+Please feel free to fork this repo and submit pull requests with changes. I will review pull requests case-by-case and if I decide I want to implement your change, I will merge it for you! Otherwise feel free to copy this repo and re-distribute!
