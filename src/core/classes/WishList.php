@@ -15,7 +15,9 @@ class WishList
      */
     public function getItems()
     {
-        $sql = "SELECT * FROM `wish_list`";
+        $sql =
+        "SELECT * FROM `wish_list`
+         ORDER BY `preference`";
         $stmt = $this->pdo_db->prepare($sql);
 
         try
