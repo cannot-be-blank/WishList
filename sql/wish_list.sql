@@ -33,7 +33,8 @@ CREATE TABLE `wish_list` (
   `name` varchar(255) NOT NULL,
   `link` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `purchased` tinyint NOT NULL DEFAULT '0',
-  `seller_id` int DEFAULT NULL
+  `seller_id` int DEFAULT NULL,
+  `preference` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
