@@ -31,6 +31,7 @@ foreach($items as $item) //converts the data of each item into the format the da
         'name' => $item['name'],
         'link' => $item['link'],
         'purchased' => $item['purchased'],
+        'preference' => $item['preference'],
         'seller_id' => $sellerID,
         'seller_name' => $sellerName,
         'seller_btn_color' => $btn_color,

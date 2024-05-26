@@ -8,6 +8,7 @@ include './imports/header-datatables.php';
     $(document).ready( function () {
         $('#items').DataTable({
             paging: false,
+            ordering: false,
             ajax:
             {
                 url: './core/AJAX/getItems.php',
@@ -26,7 +27,7 @@ include './imports/header-datatables.php';
                         {
                             $("#"+data.id).css("text-decoration", "line-through");
                         }
-                        return data.name;
+                        return data.preference+'. '+data.name;
                     }
                 },
                 { //button to allow user to open store page of an item if a link is given
@@ -57,6 +58,7 @@ include './imports/header-datatables.php';
 <!-- HTML BODY ----------------------------------------------------------------------------------->
 <div>
     <h1 style="text-align: center;"><?=$pageTitle?></h1>
+    <h3 style="text-align: center;">sorted most wanted to least wanted</h3>
     <table id="items"></table>
 </div>
 <!-- END HTML BODY ------------------------------------------------------------------------------->

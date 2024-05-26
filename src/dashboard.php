@@ -8,6 +8,7 @@ include './imports/header-datatables.php';
     $(document).ready( function () {
         $('#items').DataTable({
             paging: false,
+            ordering: false,
             ajax:
             {
                 url: './core/AJAX/getItems.php',
@@ -19,7 +20,11 @@ include './imports/header-datatables.php';
             [
                 {
                     title: 'Name',
-                    data: 'name'
+                    data: null,
+                    render: function(data)
+                    {
+                        return data.preference+'. '+data.name;
+                    }
                 },
                 {
                     title: 'View Store Page',
