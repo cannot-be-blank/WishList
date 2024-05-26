@@ -85,17 +85,28 @@ class WishList
      */
     public function insertItem($name, $link, $seller_id)
     {
-        $sql =
-        "INSERT INTO `wish_list` (`name`, `link`, `seller_id`)
-         VALUES (:name, :link, :seller_id)";
-        $stmt = $this->pdo_db->prepare($sql);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':link', $link);
-        $stmt->bindParam(':seller_id', $seller_id);
+        $sql_maxPref = "SELECT MAX(`preference`) FROM `wish_list`";
+        $stmt_maxPref = $this->pdo_db->prepare($sql_maxPref);
+        try
+        {
+            $stmt_maxPref->execute();
+            $maxPref = $stmt_maxPref->fetch();
+        }
+        catch(PDOException $e){ error_log($e->getMessage()); }
+
+        $preference = $maxPref['MAX(`preference`)'] + 1;
+
+        $sql_insert =
+        "INSERT INTO `wish_list` (`name`, `link`, `seller_id`, `preference`)
+         VALUES (:name, :link, :seller_id, $preference)";
+        $stmt_insert = $this->pdo_db->prepare($sql_insert);
+        $stmt_insert->bindParam(':name', $name);
+        $stmt_insert->bindParam(':link', $link);
+        $stmt_insert->bindParam(':seller_id', $seller_id);
 
         try
         {
-            $stmt->execute();
+            $stmt_insert->execute();
         }
         catch(PDOException $e)
         {
