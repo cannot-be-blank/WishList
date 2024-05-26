@@ -19,6 +19,18 @@ include './imports/header-datatables.php';
             columns:
             [
                 {
+                    title: 'Preference',
+                    data: null,
+                    render: function(data)
+                    {
+                        return(
+                            '<a href="preference-down.php?itemID='+data.id+'&itemPreference='+data.preference+'" title="Move item up"><i class="bi bi-caret-up-fill" style="color: #6c757d"></i></a>'+
+                            '<br>'+
+                            '<a href="preference-up.php?itemID='+data.id+'&itemPreference='+data.preference+'" title="Move item down"><i class="bi bi-caret-down-fill" style="color: #6c757d"></i></a>'
+                        );
+                    }
+                },
+                {
                     title: 'Name',
                     data: null,
                     render: function(data)
