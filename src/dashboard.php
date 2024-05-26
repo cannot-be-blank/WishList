@@ -64,7 +64,17 @@ include './imports/header-datatables.php';
                 }
             ],
             rowId: 'id',
-            liveAjax: { interval: 10000 } //checks db every 10 seconds
+            liveAjax:
+            {
+                interval: 10000, //checks db every 10 seconds
+                onUpdate: function(updates, json, xhr) //reloads page if update is detected to refresh the sort order
+                {
+                    if(typeof updates.update !== 'undefined')
+                    {
+                        location.reload();
+                    }
+                }
+            }
         });
     });
 </script>
