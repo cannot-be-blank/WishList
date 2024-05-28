@@ -32,11 +32,7 @@ include './imports/header-datatables.php';
                 },
                 {
                     title: 'Name',
-                    data: null,
-                    render: function(data)
-                    {
-                        return data.preference+'. '+data.name;
-                    }
+                    data: 'name'
                 },
                 {
                     title: 'View Store Page',

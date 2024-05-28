@@ -27,7 +27,7 @@ include './imports/header-datatables.php';
                         {
                             $("#"+data.id).css("text-decoration", "line-through");
                         }
-                        return data.preference+'. '+data.name;
+                        return data.name;
                     }
                 },
                 { //button to allow user to open store page of an item if a link is given
