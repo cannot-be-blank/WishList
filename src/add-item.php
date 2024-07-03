@@ -80,7 +80,7 @@ include './imports/header.php';
                 $('#'+sellerID).attr('selected', 'true');
             }
         </script>
-        <i class="bi bi-plus-square-fill" style="font-size: 2rem; color: #6c757d" onclick="addSeller()" title="Add seller"></i>
+        <i class="bi bi-plus-square-fill" style="font-size: 2rem; color: #6c757d; cursor: pointer" onclick="addSeller()" title="Add seller"></i>
     </div>
     <input type="submit" name="submit" class="btn btn-primary" value="Add Item">
 </form>

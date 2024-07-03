@@ -8,6 +8,7 @@ include './imports/header-datatables.php';
     $(document).ready( function () {
         $('#items').DataTable({
             paging: false,
+            ordering: false,
             ajax:
             {
                 url: './core/AJAX/getItems.php',
@@ -17,6 +18,18 @@ include './imports/header-datatables.php';
             },
             columns:
             [
+                {
+                    title: 'Preference',
+                    data: null,
+                    render: function(data)
+                    {
+                        return(
+                            '<a href="preference-down.php?itemID='+data.id+'&itemPreference='+data.preference+'" title="Move item up"><i class="bi bi-caret-up-fill" style="color: #6c757d"></i></a>'+
+                            '<br>'+
+                            '<a href="preference-up.php?itemID='+data.id+'&itemPreference='+data.preference+'" title="Move item down"><i class="bi bi-caret-down-fill" style="color: #6c757d"></i></a>'
+                        );
+                    }
+                },
                 {
                     title: 'Name',
                     data: 'name'
@@ -47,7 +60,17 @@ include './imports/header-datatables.php';
                 }
             ],
             rowId: 'id',
-            liveAjax: { interval: 10000 } //checks db every 10 seconds
+            liveAjax:
+            {
+                interval: 10000, //checks db every 10 seconds
+                onUpdate: function(updates, json, xhr) //reloads page if update is detected to refresh the sort order
+                {
+                    if(typeof updates.update !== 'undefined')
+                    {
+                        location.reload();
+                    }
+                }
+            }
         });
     });
 </script>

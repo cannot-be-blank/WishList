@@ -15,7 +15,9 @@ class WishList
      */
     public function getItems()
     {
-        $sql = "SELECT * FROM `wish_list`";
+        $sql =
+        "SELECT * FROM `wish_list`
+         ORDER BY `preference`";
         $stmt = $this->pdo_db->prepare($sql);
 
         try
@@ -83,17 +85,28 @@ class WishList
      */
     public function insertItem($name, $link, $seller_id)
     {
-        $sql =
-        "INSERT INTO `wish_list` (`name`, `link`, `seller_id`)
-         VALUES (:name, :link, :seller_id)";
-        $stmt = $this->pdo_db->prepare($sql);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':link', $link);
-        $stmt->bindParam(':seller_id', $seller_id);
+        $sql_maxPref = "SELECT MAX(`preference`) FROM `wish_list`";
+        $stmt_maxPref = $this->pdo_db->prepare($sql_maxPref);
+        try
+        {
+            $stmt_maxPref->execute();
+            $maxPref = $stmt_maxPref->fetch();
+        }
+        catch(PDOException $e){ error_log($e->getMessage()); }
+
+        $preference = $maxPref['MAX(`preference`)'] + 1;
+
+        $sql_insert =
+        "INSERT INTO `wish_list` (`name`, `link`, `seller_id`, `preference`)
+         VALUES (:name, :link, :seller_id, $preference)";
+        $stmt_insert = $this->pdo_db->prepare($sql_insert);
+        $stmt_insert->bindParam(':name', $name);
+        $stmt_insert->bindParam(':link', $link);
+        $stmt_insert->bindParam(':seller_id', $seller_id);
 
         try
         {
-            $stmt->execute();
+            $stmt_insert->execute();
         }
         catch(PDOException $e)
         {
@@ -152,5 +165,71 @@ class WishList
         {
             error_log($e->getMessage());
         }
+    }
+
+    /**
+     * increases the `preference` value of an item by 1; decreases by 1 the `preference` value of the item that originally had the new prefernce value of the specified item
+     * 
+     * @param int $id the id of the item to change
+     * @param int $currentPreference the original preference value of the item (which will be increased by 1)
+     */
+    public function itemPreferenceUp($id, $currentPreference)
+    {
+        $newPreference = $currentPreference + 1;
+
+        $sql_decreasePref =
+        "UPDATE `wish_list` SET
+         `preference` = :currentPreference
+         WHERE `preference` = :newPreference";
+        $stmt_decreasePref = $this->pdo_db->prepare($sql_decreasePref);
+        $stmt_decreasePref->bindParam(':currentPreference', $currentPreference);
+        $stmt_decreasePref->bindParam(':newPreference', $newPreference);
+
+        try{ $stmt_decreasePref->execute(); }
+        catch(PDOException $e){ error_log($e->getMessage()); }
+
+        $sql_increasePref =
+        "UPDATE `wish_list` SET
+         `preference` = :newPreference
+         WHERE `id` = :id";
+        $stmt_increasePref = $this->pdo_db->prepare($sql_increasePref);
+        $stmt_increasePref->bindParam(':newPreference', $newPreference);
+        $stmt_increasePref->bindParam(':id', $id);
+
+        try{ $stmt_increasePref->execute(); }
+        catch(PDOException $e){ error_log($e->getMessage()); }
+    }
+
+    /**
+     * decreases the `preference` value of an item by 1; increases by 1 the `preference` value of the item that originally had the new prefernce value of the specified item
+     * 
+     * @param int $id the id of the item to change
+     * @param int $currentPreference the original preference value of the item (which will be decreased by 1)
+     */
+    public function itemPreferenceDown($id, $currentPreference)
+    {
+        $newPreference = $currentPreference - 1;
+
+        $sql_increasePref =
+        "UPDATE `wish_list` SET
+         `preference` = :currentPreference
+         WHERE `preference` = :newPreference";
+        $stmt_increasePref = $this->pdo_db->prepare($sql_increasePref);
+        $stmt_increasePref->bindParam(':currentPreference', $currentPreference);
+        $stmt_increasePref->bindParam(':newPreference', $newPreference);
+
+        try{ $stmt_increasePref->execute(); }
+        catch(PDOException $e){ error_log($e->getMessage()); }
+
+        $sql_decreasePref =
+        "UPDATE `wish_list` SET
+         `preference` = :newPreference
+         WHERE `id` = :id";
+        $stmt_decreasePref = $this->pdo_db->prepare($sql_decreasePref);
+        $stmt_decreasePref->bindParam(':newPreference', $newPreference);
+        $stmt_decreasePref->bindParam(':id', $id);
+
+        try{ $stmt_decreasePref->execute(); }
+        catch(PDOException $e){ error_log($e->getMessage()); }
     }
 }

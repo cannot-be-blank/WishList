@@ -8,6 +8,7 @@ include './imports/header-datatables.php';
     $(document).ready( function () {
         $('#items').DataTable({
             paging: false,
+            ordering: false,
             ajax:
             {
                 url: './core/AJAX/getItems.php',
@@ -48,7 +49,17 @@ include './imports/header-datatables.php';
                 }
             ],
             rowId: 'id',
-            liveAjax: { interval: 10000 } //checks db every 10 seconds
+            liveAjax:
+            {
+                interval: 10000, //checks db every 10 seconds
+                onUpdate: function(updates, json, xhr) //reloads page if update is detected to refresh the sort order
+                {
+                    if(typeof updates.update !== 'undefined')
+                    {
+                        location.reload();
+                    }
+                }
+            }
         });
     });
 </script>
@@ -57,6 +68,7 @@ include './imports/header-datatables.php';
 <!-- HTML BODY ----------------------------------------------------------------------------------->
 <div>
     <h1 style="text-align: center;"><?=$pageTitle?></h1>
+    <h3 style="text-align: center;">sorted most wanted to least wanted</h3>
     <table id="items"></table>
 </div>
 <!-- END HTML BODY ------------------------------------------------------------------------------->

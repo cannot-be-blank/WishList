@@ -20,12 +20,17 @@ To host this app in its vanilla state, only an apache server with php and a mysq
 
 ## Features
 ### 1.0: Dashboard
-The dashboard page displays a list of all items currently on your wish list, with buttons for adding items, viewing the online store page of an item if one is provided, editing an item, and deleting an item.
+The dashboard page displays a list of all items currently on your wish list, with buttons for:
+-adding items
+-viewing the online store page of an item if one is provided
+-editing an item
+-deleting an item
+-changing an items preference order
 
 ![](assets/1.0.jpg)
 
 #### 1.1: Add Item
-`+` button on the top left of the dashboard page allows you to add an item (with or without a link to an online store page) to your wish list. Also includes an 'Add Seller`, to use if the seller you need is not in the seller dropdown.
+`+` button on the top left of the dashboard page allows you to add an item (with or without a link to an online store page) to your wish list (newly added items default to last in the preference order). Also includes an 'Add Seller`, to use if the seller you need is not in the seller dropdown.
 
 ![](assets/1.1.gif)
 
@@ -44,8 +49,13 @@ The dashboard page displays a list of all items currently on your wish list, wit
 
 ![](assets/1.3.gif)
 
+#### 1.4: Preference
+Up and down arrows to the left of each item allow for ordering of the list from most wanted item at the top, to least wanted item at the bottom.
+
+![](assets/1.4.gif)
+
 ### 2.0: Index Page
-The index page contains the list of items on your wish list, a button to view the online store page of an item if one is provided, and a button to mark an item as claimed. This will be the page you provide to people who you wish to view your wish list. **YOU SHOULD NOT VIEW THIS PAGE if you don't want to know what people are getting for you, as it will show strikethroughs on items that people have claimed.**
+The index page contains the list of items on your wish list, a button to view the online store page of an item if one is provided, and a button to mark an item as claimed. Also indicates the list is displayed with the most wanted item at the top, and least wanted at the bottom. This will be the page you provide to people who you wish to view your wish list. **YOU SHOULD NOT VIEW THIS PAGE if you don't want to know what people are getting for you, as it will show strikethroughs on items that people have claimed.**
 
 ![](assets/2.0.jpg)
 
@@ -57,11 +67,14 @@ If a user wants to mark an item as claimed, so other people will know not to get
 ### 3.1: View Store Page Button
 Index and Dashboard have a View Store Page button if a link and seller are provided marked with the name of the seller that opens the link in a new tab.
 
-### 3.2: Searchable Sortable Lists
-Index and Dashboard both have the ability to sort or filter items by name or seller.
+### ~~3.2: Searchable Sortable Lists~~ (Partially removed in v2.1.4 | See feature 3.4)
+~~Index and Dashboard both have the ability to sort or filter items by name or seller.~~
 
 ### 3.3: Mobile Friendly
 All pages are made to behave on all screen sizes.
+
+### 3.4: Searchable Lists
+Index and Dashboard both have the ability to filter items by name or seller.
 
 
 ## Contributions

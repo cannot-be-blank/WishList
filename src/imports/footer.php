@@ -13,7 +13,7 @@
 </style>
 <br><br><br><br>
 <div class="footer">
-    <p style="margin: 2px;">Version 2.1.3</p>
+    <p style="margin: 2px;">Version 2.1.4</p>
 </div>
 </div>
 </body>
